@@ -3,7 +3,7 @@ clc;
 clear all;
 mu = 398600.4418; %  Standard gravitational parameter for the earth
 % TLE file name 
-fname = 'starlink-31 last year.txt';
+fname = 'ajisai 20210415-20210420.txt';
 % Open the TLE file and read TLE elements
 fid = fopen(fname, 'rb');
 % 19-32	04236.56031392	Element Set Epoch (UTC)
@@ -16,16 +16,17 @@ fid = fopen(fname, 'rb');
 % 53-63	15.70406856	Mean Motion (revolutions/day)
 % 64-68	32890	Revolution Number at Epoch 
 inum = 1;
-fname = 'SL31_OE.txt';
+fname = 'ajisai_OE.txt';
 fid1 = fopen(fname, 'w');
 fprintf(fid1, 'epoch [day]           a [km]            e           inc [deg]        RAAN [deg]            w[deg]          M [deg]        Rev  \n ')
 while 1
     % read first line
     tline = fgetl(fid);
     if ~ischar(tline), break, end
-    epochY = str2num(tline(19:20));                             % Epoch year
-    epochD = str2num(tline(21:32));                             % Epoch day
-    epoch = epochY * 365.25 + epochD;                           % Epoch (day)
+%     epochY = str2num(tline(19:20));                             % Epoch year
+%     epochD = str2num(tline(21:32));                             % Epoch day
+%     epoch = epochY * 365.25 + epochD;                           % Epoch (day)
+    epoch = str2num(tline(19:32));
     
     % read second line
     tline = fgetl(fid);
@@ -46,3 +47,4 @@ while 1
 end
 fclose(fid);
 fclose(fid1);
+save('ajisai_OE.mat','OutputOE');
